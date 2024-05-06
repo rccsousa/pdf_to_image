@@ -1,5 +1,5 @@
 import fitz
-import PIL
+from PIL import Image
 import io
 
 def load(document):
@@ -72,7 +72,7 @@ def get_pixel_map(page, dpi):
         raise e
 
 
-def convert(pixel_map, output_file, format):
+def convert(pixel_map, output_file, img_format):
     """Converts the raw pixel map data to an image file.
 
     Args:
@@ -84,8 +84,8 @@ def convert(pixel_map, output_file, format):
         Exception: If the image format is invalid or an error occurs during conversion.
     """
     try:
-        img = PIL.Image.open(io.BytesIO(pixel_map))
-        img.save(output_file, format = format.upper())
+        img = Image.open(io.BytesIO(pixel_map))
+        img.save(output_file, format = img_format.upper())
     
     except Exception as e:
         print(f'Error converting pixel map to image, invalid format {e}')
